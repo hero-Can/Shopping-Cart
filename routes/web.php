@@ -21,8 +21,10 @@ Route::get('/', function () {
 //     return view('product-cards');
 // });
 
-Route::get('/shopping-cart', function () {
-    return view('shopping-cart');
-});
+// Route::get('/shopping-cart', function () {
+//     return view('shopping-cart');
+// });
 
-Route::get('/product-cards', [App\Http\Controllers\ProductController::class, 'index']);
+Route::get('/product-cards', [App\Http\Controllers\ProductController::class, 'index'])->name('products');
+Route::get('/shopping-cart', [App\Http\Controllers\CartController::class, 'cart'])->name('cart');
+Route::get('/add-products-to-cart/{product_id}', [App\Http\Controllers\CartController::class, 'addProductsToCart'])->name('add-products-to-cart');
