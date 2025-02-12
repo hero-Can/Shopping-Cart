@@ -17,10 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/product-cards', function () {
-    return view('product-cards');
-});
+// Route::get('/product-cards', function () {
+//     return view('product-cards');
+// });
 
 Route::get('/shopping-cart', function () {
     return view('shopping-cart');
 });
+
+Route::get('/product-cards', [App\Http\Controllers\ProductController::class, 'index']);

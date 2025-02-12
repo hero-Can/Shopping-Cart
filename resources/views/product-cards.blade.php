@@ -50,14 +50,22 @@
             </div>
           </div>
           <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+            @foreach ($products as $product)
             <div class="relative rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                <div class="absolute top-0 right-0 mt-4 mr-4 px-3 py-1 text-sm font-semibold text-white bg-green-500 rounded-full">
-                    In Stock
-                </div>
+                @if ($product->stock > 0)
+                    <div class="absolute top-0 right-0 mt-4 mr-4 px-3 py-1 text-sm font-semibold text-white bg-green-500 rounded-full">
+                        In Stock
+                    </div>
+                @else
+                    <div class="absolute top-0 right-0 mt-4 mr-4 px-3 py-1 text-sm font-semibold text-white bg-red-500 rounded-full">
+                        not inStock
+                    </div>
+                @endif
+
                 <div class="h-56 w-full">
                 <a href="#">
-                  <img class="mx-auto h-full dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg" alt="" />
-                  <img class="mx-auto hidden h-full dark:block" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg" alt="" />
+                  <img class="mx-auto h-full dark:hidden" src="{{$product->image}}" alt="" />
+                  {{-- <img class="mx-auto hidden h-full dark:block" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg" alt="" /> --}}
                 </a>
               </div>
               <div class="pt-6">
@@ -90,7 +98,7 @@
                   </div>
                 </div>
 
-                <a href="#" class="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white">Apple iMac 27", 1TB HDD, Retina 5K Display, M3 Max</a>
+                <a href="#" class="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white">{{$product->name}} : {{ \Str::words($product->description, 6) }} </a>
 
                 <div class="mt-2 flex items-center gap-2">
                   <div class="flex items-center">
@@ -136,7 +144,7 @@
                 </ul>
 
                 <div class="mt-4 flex items-center justify-between gap-4">
-                  <p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">$1,699</p>
+                  <p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">$ {{$product->price}}</p>
 
                   <button type="button" class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300">
                     <svg class="-ms-2 me-2 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -147,7 +155,8 @@
                 </div>
               </div>
             </div>
-            <div class="relative rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+            @endforeach
+            {{-- <div class="relative rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
                 <div class="absolute top-0 right-0 mt-4 mr-4 px-3 py-1 text-sm font-semibold text-white bg-red-500 rounded-full">
                     Not in Stock
                 </div>
@@ -1438,7 +1447,7 @@
                         </label>
                       </li>
                     </ul>
-                  </div>
+                  </div> --}}
                 </div>
               </div>
 
