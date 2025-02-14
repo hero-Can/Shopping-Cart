@@ -28,3 +28,7 @@ Route::get('/', function () {
 Route::get('/product-cards', [App\Http\Controllers\ProductController::class, 'index'])->name('products');
 Route::get('/shopping-cart', [App\Http\Controllers\CartController::class, 'cart'])->name('cart');
 Route::get('/add-products-to-cart/{product_id}', [App\Http\Controllers\CartController::class, 'addProductsToCart'])->name('add-products-to-cart');
+Route::get('/increment-qtty/{product_id}', [App\Http\Controllers\CartController::class, 'incrementQuantity'])->name('increment-qtty');
+Route::get('/decrement-qtty/{product_id}', [App\Http\Controllers\CartController::class, 'decrementQuantity'])->name('decrement-qtty');
+Route::get('/remove-product-from-cart/{product_id}', [App\Http\Controllers\CartController::class, 'removeProductFromCart'])->name('remove-product-from-cart');
+
