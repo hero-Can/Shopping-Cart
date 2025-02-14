@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class CartController extends Controller
 {
     public function cart(){
-        return view('shopping-cart');
+        $items = \Cart::getContent();
+        return view('shopping-cart',compact('items'));
     }
 
     public function addProductsToCart($product_id){
