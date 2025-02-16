@@ -48,7 +48,10 @@
             {{$message}}
             </div>
         @endif
-          <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Shopping Cart</h2>
+        <div class="flex justify-between w-[895px]">
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Shopping Cart</h2>
+            <a href="{{route('clear-cart')}}" class="underline text-blue-500 hover:text-blue-700">Clear All</a>
+        </div>
 
           <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
             <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
@@ -125,14 +128,14 @@
                     </dl>
 
                     <dl class="flex items-center justify-between gap-4">
-                      <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Tax</dt>
-                      <dd class="text-base font-medium text-gray-900 dark:text-white">$799</dd>
+                      <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Tax : ({{$tax_value}})</dt>
+                      <dd class="text-base font-medium text-gray-900 dark:text-white">{{ number_format($tax_price, 2, '.', '') }}</dd>
                     </dl>
                   </div>
 
                   <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
                     <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
-                    <dd class="text-base font-bold text-gray-900 dark:text-white">{{$total}} $</dd>
+                    <dd class="text-base font-bold text-gray-900 dark:text-white">{{ number_format($total, 2, '.', '') }} $</dd>
                   </dl>
                 </div>
 
