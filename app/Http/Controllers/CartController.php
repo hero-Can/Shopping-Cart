@@ -8,22 +8,14 @@ use Illuminate\Http\Request;
 class CartController extends Controller
 {
     public function cart(){
-        $items = \Cart::getContent()->sort();
-        // $subTotal = \Cart::getSubTotal();
-        $subTotal = \Cart::getSubTotalWithoutConditions();
-        $total = \Cart::getTotal();
-        $tax_value = \Cart::getCondition('VAT 5%')->getValue();
-        $tax_price = ((str_replace('%', '',$tax_value)) * $subTotal)/ 100;
-        return view('shopping-cart',compact('items','subTotal','total','tax_value','tax_price'));
-    }
-
-    public function addProductsToCart($product_id){
-        $product = Product::findOrFail($product_id);
-        // add single condition on a cart bases
+        // Remove Specific Cart Condition
+        // $conditionName = 'VAT 12.5%';
+        // \Cart::removeCartCondition($conditionName);
+        //  dd(\Cart::getConditions(),\Cart::getTotal(),\Cart::getSubTotal());
         $condition = new \Darryldecode\Cart\CartCondition(array(
             'name' => 'VAT 5%',
             'type' => 'tax',
-            'target' => 'total', // this condition will be applied to cart's subtotal when getSubTotal() is called.
+            'target' => 'subtotal', // this condition will be applied to cart's subtotal when getSubTotal() is called.
             'value' => '5%',
             'attributes' => array( // attributes field is optional
                 'description' => 'Value added tax',
@@ -31,6 +23,32 @@ class CartController extends Controller
             )
         ));
         \Cart::condition($condition);
+        $items = \Cart::getContent()->sort();
+        // $subTotal = \Cart::getSubTotal();
+        $subTotal = \Cart::getSubTotalWithoutConditions();
+        $tax_price = $condition->getCalculatedValue($subTotal); // conditionCalculatedValue
+        // $tax_price = ((str_replace('%', '',$tax_value)) * $subTotal)/ 100;
+        $tax_value = \Cart::getCondition('VAT 5%')->getValue();
+         $total = \Cart::getTotal();
+        //  $total = $subTotal + $tax_price;
+        //   dd(\Cart::getConditions(),\Cart::getTotal(),\Cart::getSubTotal(),\Cart::getSubTotalWithoutConditions());
+        return view('shopping-cart',compact('items','subTotal','total','tax_value','tax_price'));
+    }
+
+    public function addProductsToCart($product_id){
+        $product = Product::findOrFail($product_id);
+        // add single condition on a cart bases
+        // $condition = new \Darryldecode\Cart\CartCondition(array(
+        //     'name' => 'VAT 5%',
+        //     'type' => 'tax',
+        //     'target' => 'SubTotalWithoutConditions', // this condition will be applied to cart's subtotal when getSubTotal() is called.
+        //     'value' => '5%',
+        //     'attributes' => array( // attributes field is optional
+        //         'description' => 'Value added tax',
+        //         'more_data' => 'more data here',
+        //     )
+        // ));
+        // \Cart::condition($condition);
         // add the product to cart
         \Cart::add(array(
             'id' => $product_id,
