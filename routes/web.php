@@ -32,4 +32,5 @@ Route::get('/increment-qtty/{product_id}', [App\Http\Controllers\CartController:
 Route::get('/decrement-qtty/{product_id}', [App\Http\Controllers\CartController::class, 'decrementQuantity'])->name('decrement-qtty');
 Route::get('/remove-product-from-cart/{product_id}', [App\Http\Controllers\CartController::class, 'removeProductFromCart'])->name('remove-product-from-cart');
 Route::get('/clear-cart', [App\Http\Controllers\CartController::class, 'clearCart'])->name('clear-cart');
+Route::post('/apply-coupon', [App\Http\Controllers\CartController::class, 'applyCoupon'])->name('apply-coupon');
 

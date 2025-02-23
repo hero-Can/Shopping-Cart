@@ -47,6 +47,10 @@
             <div class="bg-green-300 text-gray p-4 rounded-lg shadow-md mb-3" role="alert">
             {{$message}}
             </div>
+        @elseif ($message = Session::get('error'))
+        <div class="bg-red-300 text-gray p-4 rounded-lg shadow-md mb-3" role="alert">
+            {{$message}}
+            </div>
         @endif
         <div class="flex justify-between w-[895px]">
             <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Shopping Cart</h2>
@@ -123,8 +127,8 @@
                     </dl>
 
                     <dl class="flex items-center justify-between gap-4">
-                      <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Store Pickup</dt>
-                      <dd class="text-base font-medium text-gray-900 dark:text-white">$99</dd>
+                      <dt class="text-base font-normal text-gray-500 dark:text-gray-400">{{$coupon_name}} ({{$coupon_value}})</dt>
+                      <dd class="text-base font-medium text-gray-900 dark:text-white">- {{ number_format($coupon_price, 2, '.', '') }}</dd>
                     </dl>
 
                     <dl class="flex items-center justify-between gap-4">
@@ -155,10 +159,11 @@
               </div>
 
               <div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
-                <form class="space-y-4">
+                <form class="space-y-4" method="POST" action="{{route('apply-coupon')}}">
+                    @csrf
                   <div>
                     <label for="voucher" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Do you have a voucher or gift card? </label>
-                    <input type="text" id="voucher" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="" required />
+                    <input type="text" name="coupon" id="voucher" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="" required />
                   </div>
                   <button type="submit" class="flex w-full items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300">
                     Apply Code
